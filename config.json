@@ -1,0 +1,19 @@
+{
+  "history": {
+    "maxValues": 10,
+    "ttlMinutes": 10
+  },
+  "server": {
+    "errorLogging": {
+      "expressFormat": true,
+      "meta": false
+    },
+    "logging": {
+      "colorize": false,
+      "expressFormat": true,
+      "meta": false,
+      "msg": "HTTP {{req.method}} {{req.url}}"
+    },
+    "port": 3000
+  }
+}

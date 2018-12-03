@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <title>Technical Test</title>
+  <meta name="description" content="">
+  <style>
+    #check-form label {
+      align-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+    }
+
+    .label-text {
+      padding-right: 1rem;
+    }
+
+    #result-indicator {
+      padding-left: 1rem;
+    }
+  </style>
+  <script>
+    const emoji = {
+      thumbsDown: '\uD83D\uDC4E',
+      thumbsUp: '\uD83D\uDC4D',
+    };
+
+    const checkValue = async (value) => {
+      const response = await fetch(`/check?value=${encodeURIComponent(value)}`);
+      const { isPalindrome } = await response.json();
+      return isPalindrome;
+    }
+
+    const setResultIndicator = (success) => {
+      const resultSymbol = success ? emoji.thumbsUp : emoji.thumbsDown;
+      document.getElementById('result-indicator').innerText = resultSymbol;
+    }
+
+    const getHistory = async () => {
+      const history = await fetch('/history');
+      const items = await history.json();
+      return items;
+    }
+
+    const writeHistory = (items) => {
+      const historyList = document.getElementById('results-list');
+      historyList.innerHTML = items.reduce(
+        (previous, current) => `${previous}\n<li>${current}</li>`,
+        ''
+      );
+    } 
+
+    const onCheckSubmit = async (event) => {
+      event.preventDefault();
+
+      try {
+        const input = document.getElementById('check-form-value');
+        const isPalindrome = await checkValue(input.value)
+        
+        setResultIndicator(isPalindrome);
+  
+        if (isPalindrome) {
+          writeHistory(await getHistory());
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      return false;
+    };
+  </script>
+</head>
+
+<body>
+  <h1>Palindrome Checker</h1>
+  <section>
+    <h2>Test</h2>
+  </section>
+  <form id="check-form" onsubmit="return onCheckSubmit(event)">
+    <label>
+      <span class="label-text">Text to check:</span>
+      <input id="check-form-value" name="value" type="text" placeholder="Type the text that you'd like to check here" />
+      <span id="result-indicator"></span>
+    </label>
+    <br />
+    <button type="submit">Submit</button>
+  </form>
+  <section>
+    <h2>Results</h2>
+    <ul id="results-list"></ul>
+  </section>
+</body>
+
+</html>
