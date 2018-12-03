@@ -10,7 +10,9 @@ We want to build a service that stores a number of palindromes. A palindrome is 
 - The service should have a simple web frontend, which you are free to design however you want
 
 ## Implementation
+
 ### Installation
+
 To install the application using [Yarn](https://yarnpkg.com/en/) (preferred), execute the following command:
 
     yarn
@@ -19,6 +21,7 @@ To install the application using [npm](https://www.npmjs.com/get-npm) , execute 
     npm install
 
 ### Usage
+
 To install the application execute the following command:
 
     yarn start
@@ -27,7 +30,9 @@ or
     npm start
 
 ### Configuration
+
 Configuration for the application can be changed through modifying `config.json`
+
 | Setting Name | Default Value | Description |
 |--|--|--|
 | `history.maxValues` | `10` | The maximum number of palindromes to return when requesting the history of matching requests. |
@@ -37,14 +42,21 @@ Configuration for the application can be changed through modifying `config.json`
 | `server.port` | `3000` | The port number that the application runs on. |
 
 ### Endpoints
+
 The Application has 2  RESTful API endpoints:
+
 #### Check
+
 Used to check if the string provided is a palindrome or not.
+
 **Path:** `/check`
+
 **Query Parameters:**
+
 | Name | Type | Description |
 |--|--|--|
 | value | string | The value which will be checked for its palindrome status.|
+
 **Example Response**
 
     {
@@ -52,8 +64,11 @@ Used to check if the string provided is a palindrome or not.
     }
 
 #### History
+
 **Path:** `/history`
+
 **Query Parameters:** N/A
+
 **Example Response**
 
     [
@@ -69,6 +84,7 @@ Used to check if the string provided is a palindrome or not.
     ]
 
 ### User Interface
+
 The user interface can be accessed at `/app`
 
 For the sake of simplicity, the JavaScript which powers this user interface is embedded into the page. Normally, this would be split out with its own set of tests and pipeline to produce production-ready code. 
